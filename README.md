@@ -31,11 +31,11 @@ If you're interested in how the project is organized at a higher level, please c
 ## Our PoC team :heart:
 
 Developers
-| [<img src="https://github.com/Baragouin.png?size=85" width=85><br><sub>[Developer's name]</sub>](https://github.com/Baragouin) | [<img src="https://github.com/agherasie.png?size=85" width=85><br><sub>[Developer's name]</sub>](https://github.com/agherasie)
+| [<img src="https://github.com/Baragouin.png?size=85" width=85><br><sub>Timothé Medico</sub>](https://github.com/Baragouin) | [<img src="https://github.com/agherasie.png?size=85" width=85><br><sub>Alexandru Gherasie</sub>](https://github.com/agherasie)
 | :---: | :---: |
 
 Manager
-| [<img src="https://github.com/Mikatech.png?size=85" width=85><br><sub>[Manager's name]</sub>](https://github.com/Mikatech)
+| [<img src="https://github.com/Mikatech.png?size=85" width=85><br><sub>Mikaël Vallenet</sub>](https://github.com/Mikatech)
 | :---: |
 
 <h2 align=center>
