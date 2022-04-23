@@ -1,5 +1,3 @@
-> If you see this section, you've just created a repository using [PoC Innovation's Open-Source project template](https://github.com/PoCInnovation/open-source-project-template). Check the [getting started guide](./.github/getting-started.md).
-
 # MindGame
 
 The project is a 32-electrode EPOC FLEX EEG signal interpreter using artificial intelligence to play a game by mind.
