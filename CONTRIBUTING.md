@@ -22,7 +22,7 @@ The recommended workflow is to fork this repository and open pull requests from 
 git clone git@github.com:PoCInnovation/MindGame.git
 
 # Add your fork as a remove
-git remote add <fork_name> https://github.com/$YOUR_GITHUB_USER/$REPOSITORY.git
+git remote add <fork_name> https://github.com/$YOUR_GITHUB_USER/MindGame.git
 ```
 
 ### 2. Create a pull request
