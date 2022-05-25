@@ -1,4 +1,2 @@
-[core]
-    remote = origin
-['remote "origin"']
-    url = s3://mindgame/
+['remote "s3-remote"']
+    url = s3://mindgame/storage
