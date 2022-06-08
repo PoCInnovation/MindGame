@@ -2,3 +2,6 @@
 .vscode/
 
 data/Training0*/
+data/*.csv
+
+src/__pycache__
