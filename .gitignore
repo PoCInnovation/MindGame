@@ -8,3 +8,5 @@
 # DVC data
 data/*
 !data/*.dvc
+
+src/__pycache__
