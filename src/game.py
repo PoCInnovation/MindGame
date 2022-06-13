@@ -13,6 +13,8 @@ model = NeuralNetwork()
 model.load_state_dict(torch.load("../models/network.pt"))
 model.eval()
 
+from pylsl import StreamInlet, resolve_stream
+
 # define params
 WIDTH = 360
 HEIGHT = 480
@@ -31,6 +33,10 @@ pygame.display.set_caption("MindGame")
 
 class Game():
     def __init__(self):
+        print("looking for an EEG stream...")
+        self.streams = resolve_stream('type', 'EEG')
+        self.inlet = StreamInlet(self.streams[0])
+
         self.running = True
         self.font = pygame.freetype.Font("../assets/ComicSansMS3.ttf", 24)
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -53,7 +59,8 @@ class Game():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
-        label = get_prediction(self.data_index, dataset, model)
+        sample = self.inlet.pull_sample()
+        label = get_prediction(sample, model)
         self.player.move(label)
         if (self.data_index < DATA_LENGTH - 1):
             self.data_index += 1
