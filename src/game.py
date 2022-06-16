@@ -33,9 +33,9 @@ pygame.display.set_caption("MindGame")
 
 class Game():
     def __init__(self):
-        print("looking for an EEG stream...")
-        self.streams = resolve_stream('type', 'EEG')
-        self.inlet = StreamInlet(self.streams[0])
+        # print("looking for an EEG stream...")
+        # self.streams = resolve_stream('type', 'EEG')
+        # self.inlet = StreamInlet(self.streams[0])
 
         self.running = True
         self.font = pygame.freetype.Font("../assets/ComicSansMS3.ttf", 24)
@@ -59,7 +59,14 @@ class Game():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
-        sample = self.inlet.pull_sample()
+        # stream realtime data
+        # sample = self.inlet.pull_sample()
+        # sample = torch.FloatTensor(sample[0])[3:-2]
+        # -----------------------
+        # work with recorded data
+        sample = dataset[self.data_index]
+        sample = torch.FloatTensor(sample[0])
+        # -----------------------
         label = get_prediction(sample, model)
         self.player.move(label)
         if (self.data_index < DATA_LENGTH - 1):

@@ -5,25 +5,21 @@ import torch.optim as optim
 from tqdm import tqdm
 import numpy as np
 
-LEARNING_RATE = 0.05
-EPOCH = 100
-BATCH_SIZE = 64
-
-def train_network(train_set, test_set):
+def train_network(train_set, test_set, epoch, batch_size, learning_rate):
 
     network = NeuralNetwork()
-    train_loader = torch.utils.data.DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True)
-    test_loader = torch.utils.data.DataLoader(test_set, batch_size=BATCH_SIZE, shuffle=True)
+    train_loader = torch.utils.data.DataLoader(train_set, batch_size=batch_size, shuffle=True)
+    test_loader = torch.utils.data.DataLoader(test_set, batch_size=batch_size, shuffle=True)
     # # Load a loss calculator and optimizer
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.SGD(network.parameters(), lr=LEARNING_RATE, momentum=0.9)
+    optimizer = optim.SGD(network.parameters(), lr=learning_rate, momentum=0.9)
 
     iteration = 0
 
-    train_accuracies = np.zeros(EPOCH)
-    test_accuracies = np.zeros(EPOCH)
+    train_accuracies = np.zeros(epoch)
+    test_accuracies = np.zeros(epoch)
 
-    for iteration in tqdm(range(EPOCH)):
+    for iteration in tqdm(range(epoch)):
         average_loss = 0.0
 
         # Training
@@ -31,10 +27,7 @@ def train_network(train_set, test_set):
         success = 0
         for inputs, labels in train_loader:
             optimizer.zero_grad()
-            try:
-                output = network.forward(inputs, BATCH_SIZE)
-            except:
-                continue
+            output = network.forward(inputs, len(inputs))
             loss = criterion(output, labels)
             loss.backward()
             optimizer.step()
@@ -49,13 +42,11 @@ def train_network(train_set, test_set):
         total = 0
         success = 0
         for inputs, labels in test_loader:
-            try:
-                output = network.forward(inputs, BATCH_SIZE)
-            except:
-                continue
+            output = network.forward(inputs, len(inputs))
             _, predicted = torch.max(output.data, 1)
             total += labels.size(0)
             success += (predicted == labels.data).sum()
         test_accuracies[iteration] = 100.0 * success / total
         # -------------------------------------------------------------------
+
     return network, train_accuracies, test_accuracies

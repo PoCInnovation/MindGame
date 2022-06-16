@@ -21,9 +21,9 @@ class NeuralNetwork(nn.Module):
     def forward(self, x, batch_size):
         x = x.view(batch_size, 1, 32)
         # Convolution layer
-        x = F.relu(self.conv1(x))
+        x = F.tanh(self.conv1(x))
         x = self.max_pool(x)
-        x = F.relu(self.conv2(x))
+        x = F.tanh(self.conv2(x))
         x = self.max_pool(x)
         # -----------------------
 
@@ -33,7 +33,7 @@ class NeuralNetwork(nn.Module):
         x = x.view(-1, 16 * 5)
 
         # Fully connected layer
-        x = F.relu(self.linear1(x))
-        x = F.relu(self.linear2(x))
+        x = F.tanh(self.linear1(x))
+        x = F.tanh(self.linear2(x))
         # -------------------------
         return x
