@@ -1,4 +1,12 @@
+# IDE's files
 .idea/
 .vscode/
 
-data/Training0*/
+# Jupyter notebook
+.ipynb_checkpoints/
+
+# DVC data
+data/*
+!data/*.dvc
+
+src/__pycache__
