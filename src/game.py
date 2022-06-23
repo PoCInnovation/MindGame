@@ -16,8 +16,8 @@ model.eval()
 from pylsl import StreamInlet, resolve_stream
 
 # define params
-WIDTH = 360
-HEIGHT = 480
+WIDTH = 1600    
+HEIGHT = 900
 FPS = 60
 
 # define colors
@@ -31,6 +31,13 @@ pygame.init()
 pygame.mixer.init()
 pygame.display.set_caption("MindGame")
 
+class Sprite(pygame.sprite.Sprite):
+    def __init__(self, src, size):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load(src)
+        self.image = pygame.transform.scale(self.image, size)
+        self.rect = self.image.get_rect()
+
 class Game():
     def __init__(self):
         # print("looking for an EEG stream...")
@@ -43,8 +50,11 @@ class Game():
         self.clock = pygame.time.Clock()
         self.data_index = 0
 
-        self.player = Player()
+        self.player = Player((WIDTH, HEIGHT))
+        self.background = Sprite("../assets/road.png", (WIDTH, HEIGHT))
+
         self.all_sprites = pygame.sprite.Group()
+        self.all_sprites.add(self.background)
         self.all_sprites.add(self.player)
 
     def draw(self):
