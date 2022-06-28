@@ -12,6 +12,9 @@ class NeuralNetwork(nn.Module):
         # --------------------------------
 
         self.dropout = nn.Dropout(0.25)
+        
+        self.lstm1 = nn.LSTMCell(16 * 5, 16 * 5)
+        self.lstm2 = nn.LSTMCell(16 * 5, 16 * 5)
 
         # Fully connected layer
         self.linear1 = nn.Linear(16 * 5, 120)
