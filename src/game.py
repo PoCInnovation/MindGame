@@ -2,15 +2,15 @@ import pygame
 import torch
 
 from load_data import load_dataset
-from neuralnetwork import NeuralNetwork
+from neuralnetwork import LabelNetwork
 from player import Player
 from prediction import get_prediction
 
 dataset = load_dataset("../models/focusdata.csv")
 DATA_LENGTH = len(dataset)
 
-model = NeuralNetwork()
-model.load_state_dict(torch.load("../models/network.pt"))
+model = LabelNetwork(label_count=2)
+model.load_state_dict(torch.load("../models/realtime.pt"))
 model.eval()
 
 from pylsl import StreamInlet, resolve_stream
@@ -40,9 +40,9 @@ class Sprite(pygame.sprite.Sprite):
 
 class Game():
     def __init__(self):
-        # print("looking for an EEG stream...")
-        # self.streams = resolve_stream('type', 'EEG')
-        # self.inlet = StreamInlet(self.streams[0])
+        print("looking for an EEG stream...")
+        self.streams = resolve_stream('type', 'EEG')
+        self.inlet = StreamInlet(self.streams[0])
 
         self.running = True
         self.font = pygame.freetype.Font("../assets/ComicSansMS3.ttf", 24)
@@ -50,7 +50,7 @@ class Game():
         self.clock = pygame.time.Clock()
         self.data_index = 0
 
-        self.player = Player((WIDTH, HEIGHT))
+        self.player = Player()
         self.background = Sprite("../assets/road.png", (WIDTH, HEIGHT))
 
         self.all_sprites = pygame.sprite.Group()
@@ -70,12 +70,12 @@ class Game():
             if event.type == pygame.QUIT:
                 self.running = False
         # stream realtime data
-        # sample = self.inlet.pull_sample()
-        # sample = torch.FloatTensor(sample[0])[3:-2]
+        sample = self.inlet.pull_sample()
+        sample = torch.FloatTensor(sample[0])[3:-2]
         # -----------------------
         # work with recorded data
-        sample = dataset[self.data_index]
-        sample = torch.FloatTensor(sample[0])
+        # sample = dataset[self.data_index]
+        # sample = torch.FloatTensor(sample[0])
         # -----------------------
         label = get_prediction(sample, model)
         self.player.move(label)
@@ -90,7 +90,9 @@ class Game():
             self.clock.tick(FPS)
             self.draw()
             self.update()
-
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_r]:
+                self.player.reset()
 game = Game()
 game.loop()
 
