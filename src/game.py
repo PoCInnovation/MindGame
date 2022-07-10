@@ -9,7 +9,7 @@ from prediction import get_prediction
 dataset = load_dataset("../models/focusdata.csv")
 DATA_LENGTH = len(dataset)
 
-model = LabelNetwork(label_count=2)
+model = LabelNetwork(label_count=5)
 model.load_state_dict(torch.load("../models/realtime.pt"))
 model.eval()
 

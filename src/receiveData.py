@@ -1,5 +1,6 @@
 """Example program to show how to read a multi-channel time series from LSL."""
 
+from time import sleep
 from pylsl import StreamInlet, resolve_stream
 from write_data import write_data
 
@@ -11,7 +12,7 @@ def main():
     # create a new inlet to read from the stream
     inlet = StreamInlet(streams[0])
 
-    LENGTH = 100
+    LENGTH = 3000
 
     collected_data = list()
     i = 0
@@ -28,8 +29,9 @@ def main():
         element.append(sample)
         element.append(label)
         collected_data.append(element)
-        print(i)
         i += 1
+        print(i)
+        # sleep(0.001)
         if (i > LENGTH):
             key = input("Press any key to continue... (press q to stop)")
             if (key == 'q'):

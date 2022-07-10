@@ -16,6 +16,10 @@ class Player(pygame.sprite.Sprite):
             self.rect.y -= 1
         if label == 1:
             self.rect.y += 1
+        if label == 2:
+            self.rect.x -= 1
+        if label == 3:
+            self.rect.x += 1
     def reset(self):
         self.rect.y = 400
         self.rect.x = 800
