@@ -3,17 +3,20 @@ import torch
 import pandas as pd
 import numpy as np
 
+
 def get_mean_electrode(slice, electrode):
     value = 0
     for i in range(slice.shape[0]):
         value += slice[i][electrode]
     return value / slice.shape[0]
 
+
 def get_mean_values(dataset):
     mean_values = [0] * dataset.shape[0]
     for i in range(dataset.shape[0]):
         mean_values[i] = dataset[i].mean()
     return mean_values
+
 
 def rescale_dataset(dataset, scale):
     scaled_set = torch.zeros([(int)(dataset.shape[0] / scale), dataset.shape[1]])
@@ -22,6 +25,7 @@ def rescale_dataset(dataset, scale):
         for j in range(scaled_set.shape[1]):
             scaled_set[i][j] = get_mean_electrode(slice_of_ten, j)
     return scaled_set
+
 
 def convert_dataset(path):
     file = pd.read_csv(path, skiprows=1,
@@ -40,6 +44,7 @@ def convert_dataset(path):
     large_data = torch.Tensor(standardized_data)
 
     return rescale_dataset(large_data, 10)
+
 
 def split_data(dataset):
     random.shuffle(dataset)

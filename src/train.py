@@ -5,8 +5,9 @@ import torch.optim as optim
 from tqdm import tqdm
 import numpy as np
 
+
 def train_network(train_set, test_set, epoch, batch_size, learning_rate, network):
-    if network == None:
+    if network is None:
         network = NeuralNetwork()
     train_loader = torch.utils.data.DataLoader(train_set, batch_size=batch_size, shuffle=True)
     test_loader = torch.utils.data.DataLoader(test_set, batch_size=batch_size, shuffle=True)

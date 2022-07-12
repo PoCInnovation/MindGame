@@ -31,6 +31,7 @@ pygame.init()
 pygame.mixer.init()
 pygame.display.set_caption("MindGame")
 
+
 class Game():
     def __init__(self):
         # print("looking for an EEG stream...")
@@ -69,7 +70,7 @@ class Game():
         # -----------------------
         label = get_prediction(sample, model)
         self.player.move(label)
-        if (self.data_index < DATA_LENGTH - 1):
+        if self.data_index < DATA_LENGTH - 1:
             self.data_index += 1
         else:
             self.data_index = 0
@@ -80,6 +81,7 @@ class Game():
             self.clock.tick(FPS)
             self.draw()
             self.update()
+
 
 game = Game()
 game.loop()

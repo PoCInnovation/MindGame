@@ -9,3 +9,4 @@ def write_data(data, path):
             f.write(f"{item},")
         f.write("\n")
     f.close()
+    

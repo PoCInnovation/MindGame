@@ -3,6 +3,7 @@
 from pylsl import StreamInlet, resolve_stream
 from write_data import write_data
 
+
 def main():
     # first resolve an EEG stream on the lab network
     print("looking for an EEG stream...")
@@ -25,13 +26,13 @@ def main():
         sample.pop(-1)
         element.append(sample)
         label = 1
-        if (i > 1000):
+        if i > 1000:
             label = 0
         element.append(label)
         collected_data.append(element)
         print(i)
         i += 1
-        if (i > 2000):
+        if i > 2000:
             break
 
     print(collected_data[0], end="\n\n--------------\n")
