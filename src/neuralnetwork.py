@@ -94,8 +94,10 @@ class RNNNetwork(nn.Module):
 
         self.dropout = nn.Dropout(0.25)
 
+        self.rnn = nn.RNNCell(16 * 5, 50)
+
         # Fully connected layer
-        self.linear1 = nn.Linear(16 * 5, 120)
+        self.linear1 = nn.Linear(50, 120)
         self.linear2 = nn.Linear(120, label_count)
         # --------------------------------
 
@@ -112,6 +114,8 @@ class RNNNetwork(nn.Module):
 
         # Flatten filters
         x = x.view(-1, 16 * 5)
+
+        x = self.rnn(x)
 
         # Fully connected layer
         x = torch.tanh(self.linear1(x))
