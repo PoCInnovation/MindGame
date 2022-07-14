@@ -24,6 +24,8 @@ class Player(pygame.sprite.Sprite):
                 self.input[label] -= 0.2
             if (self.input[label] < 0):
                 self.input[label] = 0
+            if (self.input[label] > 3):
+                self.input[label] = 3
         if (self.input[UP] >= 1):
             self.rect.y -= 1
         if (self.input[DOWN] >= 1):
