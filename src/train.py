@@ -15,8 +15,6 @@ def train_network(train_set, test_set, epoch, batch_size, learning_rate, network
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.SGD(network.parameters(), lr=learning_rate, momentum=0.9)
 
-    iteration = 0
-
     train_accuracies = np.zeros(epoch)
     test_accuracies = np.zeros(epoch)
 

@@ -9,7 +9,7 @@ FPS = 60
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("../assets/car.png")
+        self.image = pygame.image.load("../../assets/car.png")
         self.image = pygame.transform.scale(self.image, (64, 80))
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH / 2, HEIGHT - 80)

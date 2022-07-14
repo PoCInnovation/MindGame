@@ -2,7 +2,7 @@ import torch
 import pygame
 
 from player import Player
-from prediction import get_prediction
+from ..prediction import get_prediction
 
 # define params
 WIDTH = 360

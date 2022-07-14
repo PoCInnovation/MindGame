@@ -5,7 +5,7 @@ from os.path import exists
 
 
 def ask_model():
-    print('Which network do you want to use?')
+    print('Which model do you want to use?')
     print('1 - Convolution')
     print('2 - Label detection')
     print('3 - Label detection with RNN')

@@ -1,6 +1,6 @@
 from model import load_model
 from load_data import load_dataset
-from game import Game, run_game
+from src.game.game import run_game
 from os.path import exists
 
 
