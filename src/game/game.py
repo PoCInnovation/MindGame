@@ -3,10 +3,11 @@ import pygame
 
 from player import Player
 from ..prediction import get_prediction
+from pylsl import StreamInlet, resolve_stream
 
 # define params
-WIDTH = 360
-HEIGHT = 480
+WIDTH = 1600
+HEIGHT = 900
 FPS = 60
 
 # define colors
@@ -28,6 +29,14 @@ def run_game(model, dataset):
     pygame.quit()
 
 
+class Sprite(pygame.sprite.Sprite):
+    def __init__(self, src, size):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load(src)
+        self.image = pygame.transform.scale(self.image, size)
+        self.rect = self.image.get_rect()
+
+
 class Game:
     def __init__(self, model, dataset):
         # print("looking for an EEG stream...")
@@ -44,7 +53,10 @@ class Game:
         self.dataset = dataset
         self.data_length = len(dataset)
         self.player = Player()
+        self.background = Sprite("../assets/road.png", (WIDTH, HEIGHT))
+
         self.all_sprites = pygame.sprite.Group()
+        self.all_sprites.add(self.background)
         self.all_sprites.add(self.player)
 
     def draw(self):
@@ -80,3 +92,6 @@ class Game:
             self.clock.tick(FPS)
             self.draw()
             self.update()
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_r]:
+                self.player.reset()
