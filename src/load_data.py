@@ -3,6 +3,14 @@ import torch
 
 
 def load_dataset(path):
+    """Load dataset from filepath passed in parameter
+    Dataset will be pre-proceed removing unused columns
+
+    :param path: filepath to dataset
+    :return: Pre-processed dataset
+    :rtype: list
+    """
+
     file = pd.read_csv(path)
     df = pd.DataFrame(file)
     df = df.drop(columns=['Unnamed: 33'])

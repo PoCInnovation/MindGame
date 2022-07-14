@@ -1,19 +1,8 @@
-import pygame
 import torch
+import pygame
 
-from load_data import load_dataset
-from neuralnetwork import NeuralNetwork
 from player import Player
 from prediction import get_prediction
-
-dataset = load_dataset("../models/focusdata.csv")
-DATA_LENGTH = len(dataset)
-
-model = NeuralNetwork()
-model.load_state_dict(torch.load("../models/network.pt"))
-model.eval()
-
-from pylsl import StreamInlet, resolve_stream
 
 # define params
 WIDTH = 360
@@ -27,13 +16,20 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
-pygame.init()
-pygame.mixer.init()
-pygame.display.set_caption("MindGame")
+
+def run_game(model, dataset):
+    pygame.init()
+    pygame.mixer.init()
+    pygame.display.set_caption("MindGame")
+
+    game = Game(model, dataset)
+    game.loop()
+
+    pygame.quit()
 
 
-class Game():
-    def __init__(self):
+class Game:
+    def __init__(self, model, dataset):
         # print("looking for an EEG stream...")
         # self.streams = resolve_stream('type', 'EEG')
         # self.inlet = StreamInlet(self.streams[0])
@@ -44,6 +40,9 @@ class Game():
         self.clock = pygame.time.Clock()
         self.data_index = 0
 
+        self.model = model
+        self.dataset = dataset
+        self.data_length = len(dataset)
         self.player = Player()
         self.all_sprites = pygame.sprite.Group()
         self.all_sprites.add(self.player)
@@ -65,12 +64,12 @@ class Game():
         # sample = torch.FloatTensor(sample[0])[3:-2]
         # -----------------------
         # work with recorded data
-        sample = dataset[self.data_index]
+        sample = self.dataset[self.data_index]
         sample = torch.FloatTensor(sample[0])
         # -----------------------
-        label = get_prediction(sample, model)
+        label = get_prediction(sample, self.model)
         self.player.move(label)
-        if self.data_index < DATA_LENGTH - 1:
+        if self.data_index < self.data_length - 1:
             self.data_index += 1
         else:
             self.data_index = 0
@@ -81,9 +80,3 @@ class Game():
             self.clock.tick(FPS)
             self.draw()
             self.update()
-
-
-game = Game()
-game.loop()
-
-pygame.quit()
