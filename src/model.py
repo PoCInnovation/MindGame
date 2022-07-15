@@ -1,12 +1,11 @@
+import os
 import torch
-
-from neuralnetwork import NeuralNetwork, LabelNetwork, RNNNetwork
-from os.path import exists
+import src.train.networks as nn
 
 
-def ask_model():
-    print('Which model do you want to use?')
-    print('1 - Convolution')
+def ask_network():
+    print('Which network do you want to use?')
+    print('1 - Focus detection')
     print('2 - Label detection')
     print('3 - Label detection with RNN')
 
@@ -16,22 +15,22 @@ def ask_model():
 
         if 0 < response < 4:
             break
+        print('Invalid input, please enter a following number 1, 2, 3')
 
     if response == 1:
-        return NeuralNetwork()
+        return nn.NeuralNetwork()
     if response == 2:
-        return LabelNetwork(label_count=4)
+        return nn.LabelNetwork(label_count=4)
     if response == 3:
-        return RNNNetwork(label_count=4)
+        return nn.RNNNetwork(label_count=4)
     return None
 
 
-def load_model():
-    model = ask_model()
+def load_network():
+    network = ask_network()
     filepath = '../models/network.pt'
 
-    if not exists(filepath):
-        raise FileNotFoundError('Model training file does not exist (%s)' % filepath)
-    model.load_state_dict(torch.load(filepath))
-    model.eval()
-    return model
+    if os.path.exists(filepath):
+        network.load_state_dict(torch.load(filepath))
+        network.eval()
+    return network

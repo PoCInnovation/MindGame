@@ -47,6 +47,10 @@ def convert_dataset(path):
 
 
 def split_data(dataset):
+    """
+    Split dataset into training set and test set
+    80% of data go into training set
+    """
     random.shuffle(dataset)
     train_size = int(len(dataset) * 0.8)
     test_size = len(dataset) - train_size

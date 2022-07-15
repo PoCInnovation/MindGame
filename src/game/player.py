@@ -21,19 +21,19 @@ class Player(pygame.sprite.Sprite):
         ##### Indirect movement
         self.input[label] += 0.1
         for i in range(len(self.input)):
-            if (i != label):
+            if i != label:
                 self.input[label] -= 0.2
-            if (self.input[label] < 0):
+            if self.input[label] < 0:
                 self.input[label] = 0
-            if (self.input[label] > 3):
+            if self.input[label] > 3:
                 self.input[label] = 3
-        if (self.input[UP] >= 1):
+        if self.input[UP] >= 1:
             self.rect.y -= 1
-        if (self.input[DOWN] >= 1):
+        if self.input[DOWN] >= 1:
             self.rect.y += 1
-        if (self.input[LEFT] >= 1):
+        if self.input[LEFT] >= 1:
             self.rect.x -= 1
-        if (self.input[RIGHT] >= 1):
+        if self.input[RIGHT] >= 1:
             self.rect.x += 1
 
         ##### Direct movement

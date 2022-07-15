@@ -1,8 +1,8 @@
 import torch
 import pygame
 
-from player import Player
-from ..prediction import get_prediction
+from src.game.player import Player
+from src.prediction import get_prediction
 from pylsl import StreamInlet, resolve_stream
 
 # define params

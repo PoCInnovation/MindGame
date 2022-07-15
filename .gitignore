@@ -9,4 +9,8 @@
 data/*
 !data/*.dvc
 
+# Record files
+records/
+
 src/__pycache__
+src/**/__pycache__
