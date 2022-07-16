@@ -3,11 +3,11 @@ import src.train.runner as runner
 import src.load_data as loader
 
 
-def train_record(network):
+def train_record(network, network_type):
     input('Put training file into \'models/training.csv\' and press any key to continue...')
     path = '../models/training.csv'
     if not os.path.exists(path):
         raise FileNotFoundError('Dataset file does not exist (%s)' % path)
     dataset = loader.load_dataset(path)
-    network, train_accuracies, test_accuracies = runner.train_network(network, dataset)
+    network, train_accuracies, test_accuracies = runner.train_network(network, network_type, dataset)
     return network, train_accuracies, test_accuracies

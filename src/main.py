@@ -8,20 +8,20 @@ from src.train.record import train_record
 
 
 def ask_training():
+    print('Do you want to train this network? (y/n)')
     while True:
-        response = input('Do you want to train this network? (y/n)')
+        response = input()
 
         if response == 'y' or response == 'n':
             break
         print('Invalid input, please type y or n')
-    response = True if response == 'y' else False
-    return response
+    return True if response == 'y' else False
 
 
-def ask_dataset(model):
+def train_network(network, network_type):
     print('Which dataset do you want to use?')
     print('1 - Realtime')
-    print('2 - Recorded')
+    print('2 - Record')
 
     while True:
         response = input()
@@ -31,9 +31,9 @@ def ask_dataset(model):
             break
         print('Invalid input, please type 1 or  2')
     if response == 1:
-        train_realtime(model)
+        train_realtime(network, network_type)
     else:
-        train_record(model)
+        train_record(network, network_type)
 
 
 def get_dataset():
@@ -45,12 +45,12 @@ def get_dataset():
 
 
 def main():
-    model = load_network()
-    training = ask_training()
-    if training:
-        ask_dataset(model)
+    network, network_type = load_network()
+    if ask_training():
+        train_network(network, network_type)
+        print('Training finished, network can now be used!')
     dataset = get_dataset()
-    run_game(model, dataset)
+    run_game(network, dataset)
 
 
 if __name__ == '__main__':

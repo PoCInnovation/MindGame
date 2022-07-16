@@ -8,13 +8,13 @@ from tqdm import tqdm
 import numpy as np
 
 
-def train_network(network, dataset):
+def train_network(network, network_type, dataset):
     train_set, test_set = pp.split_data(dataset)
     network, train_accuracies, test_accuracies = train(train_set, test_set, epoch=100, batch_size=32, learning_rate=0.05, network=network)
 
     plt.plot(train_accuracies)
     plt.plot(test_accuracies)
-    torch.save(network.state_dict(), "../models/network.pt")
+    torch.save(network.state_dict(), '../models/' + network_type.name + '.pt')
     return network, train_accuracies, test_accuracies
 
 
