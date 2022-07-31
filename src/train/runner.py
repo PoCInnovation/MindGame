@@ -1,20 +1,31 @@
-from neuralnetwork import NeuralNetwork
+from src.train.networks import NeuralNetwork
 import torch
+import matplotlib.pyplot as plt
+import src.preprocess as pp
 import torch.nn as nn
 import torch.optim as optim
 from tqdm import tqdm
 import numpy as np
 
-def train_network(train_set, test_set, epoch, batch_size, learning_rate):
 
-    network = NeuralNetwork()
+def train_network(network, network_type, dataset):
+    train_set, test_set = pp.split_data(dataset)
+    network, train_accuracies, test_accuracies = train(train_set, test_set, epoch=100, batch_size=32, learning_rate=0.05, network=network)
+
+    plt.plot(train_accuracies)
+    plt.plot(test_accuracies)
+    torch.save(network.state_dict(), '../models/' + network_type.name + '.pt')
+    return network, train_accuracies, test_accuracies
+
+
+def train(train_set, test_set, epoch, batch_size, learning_rate, network):
+    if network is None:
+        network = NeuralNetwork()
     train_loader = torch.utils.data.DataLoader(train_set, batch_size=batch_size, shuffle=True)
     test_loader = torch.utils.data.DataLoader(test_set, batch_size=batch_size, shuffle=True)
     # # Load a loss calculator and optimizer
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.SGD(network.parameters(), lr=learning_rate, momentum=0.9)
-
-    iteration = 0
 
     train_accuracies = np.zeros(epoch)
     test_accuracies = np.zeros(epoch)
