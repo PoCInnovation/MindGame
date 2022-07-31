@@ -7,7 +7,7 @@ FPS = 60
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("../../assets/car.png")
+        self.image = pygame.image.load("../assets/car.png")
         self.image = pygame.transform.scale(self.image, (64, 80))
         self.rect = self.image.get_rect()
         self.rect.y = 400
@@ -22,21 +22,21 @@ class Player(pygame.sprite.Sprite):
         self.input[label] += 0.1
         for i in range(len(self.input)):
             if i != label:
-                self.input[label] -= 0.2
-            if self.input[label] < 0:
-                self.input[label] = 0
-            if self.input[label] > 3:
-                self.input[label] = 3
-        if self.input[UP] >= 1:
+                self.input[i] -= 0.2
+            if self.input[i] < 0:
+                self.input[i] = 0
+            if self.input[i] > 3.0:
+                self.input[i] = 3
+        if self.input[UP] >= 0.3:
             self.rect.y -= 1
-        if self.input[DOWN] >= 1:
+        if self.input[DOWN] >= 0.3:
             self.rect.y += 1
-        if self.input[LEFT] >= 1:
+        if self.input[LEFT] >= 0.3:
             self.rect.x -= 1
-        if self.input[RIGHT] >= 1:
+        if self.input[RIGHT] >= 0.3:
             self.rect.x += 1
 
-        ##### Direct movement
+        #### Direct movement
         # if label == UP:
         #     self.rect.y -= 1
         # if label == DOWN:

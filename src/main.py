@@ -17,6 +17,22 @@ def ask_training():
         print('Invalid input, please type y or n')
     return True if response == 'y' else False
 
+def ask_testing():
+    print('Do you want to test with realtime data or recorded data ?')
+    print('1 - Realtime')
+    print('2 - Recorded')
+
+    while True:
+        response = input()
+        response = int(response) if response.isnumeric() else 0
+
+        if 0 < response < 3:
+            break
+        print('Invalid input, please type 1 or  2')
+    if response == 1:
+        return True
+    else:
+        return False
 
 def train_network(network, network_type):
     print('Which dataset do you want to use?')
@@ -50,7 +66,7 @@ def main():
         train_network(network, network_type)
         print('Training finished, network can now be used!')
     dataset = get_dataset()
-    run_game(network, dataset)
+    run_game(network, dataset, ask_testing())
 
 
 if __name__ == '__main__':

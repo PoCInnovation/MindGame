@@ -18,12 +18,12 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
 
-def run_game(model, dataset):
+def run_game(model, dataset, realtime):
     pygame.init()
     pygame.mixer.init()
     pygame.display.set_caption("MindGame")
 
-    game = Game(model, dataset)
+    game = Game(model, dataset, realtime)
     game.loop()
 
     pygame.quit()
@@ -38,10 +38,11 @@ class Sprite(pygame.sprite.Sprite):
 
 
 class Game:
-    def __init__(self, model, dataset):
-        # print("looking for an EEG stream...")
-        # self.streams = resolve_stream('type', 'EEG')
-        # self.inlet = StreamInlet(self.streams[0])
+    def __init__(self, model, dataset, realtime):
+        if realtime:
+            print("looking for an EEG stream...")
+            self.streams = resolve_stream('type', 'EEG')
+            self.inlet = StreamInlet(self.streams[0])
 
         self.running = True
         self.font = pygame.freetype.Font("../assets/ComicSansMS3.ttf", 24)
@@ -49,6 +50,7 @@ class Game:
         self.clock = pygame.time.Clock()
         self.data_index = 0
 
+        self.realtime = realtime
         self.model = model
         self.dataset = dataset
         self.data_length = len(dataset)
@@ -71,14 +73,14 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
-        # stream realtime data
-        # sample = self.inlet.pull_sample()
-        # sample = torch.FloatTensor(sample[0])[3:-2]
-        # -----------------------
-        # work with recorded data
-        sample = self.dataset[self.data_index]
-        sample = torch.FloatTensor(sample[0])
-        # -----------------------
+        if self.realtime:
+            # stream realtime data
+            sample = self.inlet.pull_sample()
+            sample = torch.FloatTensor(sample[0])[3:-2]
+        else:
+            # work with recorded data
+            sample = self.dataset[self.data_index]
+            sample = torch.FloatTensor(sample[0])
         label = get_prediction(sample, self.model)
         self.player.move(label)
         if self.data_index < self.data_length - 1:
