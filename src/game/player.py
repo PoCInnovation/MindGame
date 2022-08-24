@@ -17,34 +17,27 @@ class Player(pygame.sprite.Sprite):
 
     def move(self, label):
         UP, DOWN, LEFT, RIGHT = 0, 1, 2, 3
+        SPEED = 1
+        MOVEMENT = 10
 
-        ##### Indirect movement
-        self.input[label] += 0.1
-        for i in range(len(self.input)):
-            if i != label:
-                self.input[i] -= 0.2
-            if self.input[i] < 0:
-                self.input[i] = 0
-            if self.input[i] > 3.0:
-                self.input[i] = 3
-        if self.input[UP] >= 0.3:
-            self.rect.y -= 1
-        if self.input[DOWN] >= 0.3:
-            self.rect.y += 1
-        if self.input[LEFT] >= 0.3:
-            self.rect.x -= 1
-        if self.input[RIGHT] >= 0.3:
-            self.rect.x += 1
+        self.input[label] += SPEED
 
-        #### Direct movement
-        # if label == UP:
-        #     self.rect.y -= 1
-        # if label == DOWN:
-        #     self.rect.y += 1
-        # if label == LEFT:
-        #     self.rect.x -= 1
-        # if label == RIGHT:
-        #     self.rect.x += 1
+        print(f"UP:\t{self.input[UP]}%")
+        print(f"DOWN:\t{self.input[DOWN]}%")
+        print(f"LEFT:\t{self.input[LEFT]}%")
+        print(f"RIGHT:\t{self.input[RIGHT]}%")
+
+        if self.input[label] >= 100:
+            if label == UP:
+                self.rect.y -= MOVEMENT
+            if label == DOWN:
+                self.rect.y += MOVEMENT
+            if label == LEFT:
+                self.rect.x -= MOVEMENT
+            if label == RIGHT:
+                self.rect.x += MOVEMENT
+            self.input = [0.0, 0.0, 0.0, 0.0]
+
     def reset(self):
         self.rect.y = 400
         self.rect.x = 800
