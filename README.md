@@ -34,11 +34,11 @@ The project is powered by the following libraries:
 
 ### Quickstart
 
-[Explain how to run this project]
+You can either check out the notebooks in `src/eeg.ipynb` or run the main project from `main.py`.
 
 ### Usage
 
-[Explain how to use this project]
+You need [the EPOC Flex Kit](https://www.emotiv.com/product/epoc-flex-gel-sensor-kit/) and [an EmotivPRO license](https://www.emotiv.com/emotivpro/) in order to use the project.
 
 ## Get involved
 
