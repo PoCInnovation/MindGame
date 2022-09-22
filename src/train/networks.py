@@ -78,7 +78,24 @@ class LabelNetwork(nn.Module):
         x = torch.tanh(self.linear2(x))
         # -------------------------
         return x
+class LinearClassifierNetwork(nn.Module):
+    def __init__(self, label_count):
+        super(LinearClassifierNetwork, self).__init__()
 
+        self.label_count = label_count
+
+        # Fully connected layer
+        self.linear1 = nn.Linear(32, 64)
+        self.linear2 = nn.Linear(64, label_count)
+        # --------------------------------
+
+    def forward(self, x, batch_size):
+
+        # Fully connected layer
+        x = torch.tanh(self.linear1(x))
+        x = torch.tanh(self.linear2(x))
+        # -------------------------
+        return x
 
 class RNNNetwork(nn.Module):
     def __init__(self, label_count):
