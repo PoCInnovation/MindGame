@@ -4,21 +4,41 @@ The project is a 32-electrode EPOC FLEX EEG signal interpreter using artificial 
 
 ## How does it work?
 
-[Explain how this project is working]
+![Emotiv](https://cdn-bhgin.nitrocdn.com/fYiCbyekuWxdwsIavStGyhFBtSFZmwkM/assets/static/optimized/rev-f33305f/uploads/2018/06/flex-kit-510x510.jpeg)
+
+Installing the headset generally takes about 30 minutes to an hour during which we apply the gel on each electrode.
+
+The EEG signals are transmitted wirelessly to the Emotiv software which displays each signal's stability:
+
+![Connectivity](./assets/eegconnectivity.png)
+
+After the installation is done and the connectivity averages 100%, we can begin the EEG session.
+
+![Signals](./assets/eegsignals.gif)
+
+The signals can either be recorded and worked with later or streamed in real time.
+
+After the recording session, we spend about one hour and a half cleaning up the kit.
 
 ## Getting Started
 
 ### Installation
 
-[Explain how to install all of the project's dependencies]
+The project is powered by the following libraries:
+
+- [pylsl](https://github.com/chkothe/pylsl)
+- [pandas](https://pandas.pydata.org/)
+- [numpy](https://numpy.org/)
+- [pytorch](https://pytorch.org/)
+
 
 ### Quickstart
 
-[Explain how to run this project]
+You can either check out the notebooks in `src/eeg.ipynb` or run the main project from `main.py`.
 
 ### Usage
 
-[Explain how to use this project]
+You need [the EPOC Flex Kit](https://www.emotiv.com/product/epoc-flex-gel-sensor-kit/) and [an EmotivPRO license](https://www.emotiv.com/emotivpro/) in order to use the project.
 
 ## Get involved
 
