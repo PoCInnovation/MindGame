@@ -53,7 +53,7 @@ Developers
 | :---: | :---: |
 
 Manager
-| [<img src="https://github.com/Mikatech.png?size=85" width=85><br><sub>Mikaël Vallenet</sub>](https://github.com/Mikatech)
+| [<img src="https://github.com/MikaelVallenet.png?size=85" width=85><br><sub>Mikaël Vallenet</sub>](https://github.com/MikaelVallenet)
 | :---: |
 
 <h2 align=center>
